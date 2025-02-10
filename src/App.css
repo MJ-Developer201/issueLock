@@ -1,0 +1,10 @@
+body {
+  margin: 0 auto;
+  color: white !important;
+  background-color: rgb(61, 61, 61) !important;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
