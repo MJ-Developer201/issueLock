@@ -11,7 +11,7 @@ export default function HomePage() {
           alignItems: "center",
           justifyContent: "flex-start", // Align items to the top
           height: "100vh",
-          backgroundImage: `url('/blake-connally-B3.jpg')`, // Update the path to your image
+          backgroundImage: `url('/blake-connally-B3-2.jpg')`, // Update the path to your image
           backgroundSize: "cover",
           backgroundPosition: "center",
           paddingTop: "10vh", // Add padding to move the content down a bit
