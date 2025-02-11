@@ -15,7 +15,7 @@ export default function Invites() {
   const showNotification = useNotification();
   const [invites, setInvites] = useState([]);
   const apiUrl = import.meta.env.VITE_API_URL;
-  const awsUrl = import.meta.env.AWS_API_URL;
+  const awsUrl = import.meta.env.VITE_AWS_API_URL;
   const url = awsUrl || apiUrl;
 
   const fetchInvites = async () => {

@@ -21,7 +21,7 @@ export default function ProjectsList() {
   const showNotification = useNotification();
   const [projects, setProjects] = useState([]);
   const apiUrl = import.meta.env.VITE_API_URL;
-  const awsUrl = import.meta.env.AWS_API_URL;
+  const awsUrl = import.meta.env.VITE_AWS_API_URL;
   const url = awsUrl || apiUrl;
 
   const fetchProjects = async () => {

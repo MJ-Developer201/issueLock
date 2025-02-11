@@ -16,7 +16,7 @@ import axios from "axios";
 import { useNotification } from "../../../global/context/NotificationContext";
 import { AuthContext } from "../../../App";
 const apiUrl = import.meta.env.VITE_API_URL;
-const awsUrl = import.meta.env.AWS_API_URL;
+const awsUrl = import.meta.env.VITE_AWS_API_URL;
 const url = awsUrl || apiUrl;
 
 export default function TicketList() {

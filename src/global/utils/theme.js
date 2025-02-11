@@ -7,7 +7,7 @@ const theme = createTheme({
         root: {
           "& .MuiOutlinedInput-root": {
             borderRadius: "10px",
-            height: "40px", // Adjusted height to be more practical
+            height: "40px",
             "& fieldset": {
               borderRadius: "10px",
             },

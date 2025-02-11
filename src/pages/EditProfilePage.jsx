@@ -37,7 +37,7 @@ export default function EditProfilePage() {
   const [openImgModal, setOpenImgModal] = useState(false);
   const [alert, setAlert] = useState({ message: "", severity: "" });
   const apiUrl = import.meta.env.VITE_API_URL;
-  const awsUrl = import.meta.env.AWS_API_URL;
+  const awsUrl = import.meta.env.VITE_AWS_API_URL;
   const url = awsUrl || apiUrl;
 
   const fetchUserData = async ({ queryKey }) => {

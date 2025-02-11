@@ -11,7 +11,7 @@ export default function CreateOrgForm({ orgName, setOrgName, handleCancel }) {
   const { accessToken } = useContext(AuthContext);
   const showNotification = useNotification();
   const apiUrl = import.meta.env.VITE_API_URL;
-  const awsUrl = import.meta.env.AWS_API_URL;
+  const awsUrl = import.meta.env.VITE_AWS_API_URL;
   const url = awsUrl || apiUrl;
 
   //

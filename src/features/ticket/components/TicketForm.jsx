@@ -29,7 +29,7 @@ export default function TicketForm() {
   const [assignedUser, setAssignedUser] = useState("");
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
-  const awsUrl = import.meta.env.AWS_API_URL;
+  const awsUrl = import.meta.env.VITE_AWS_API_URL;
   const url = awsUrl || apiUrl;
 
   const priorities = ["Low", "Med", "High"];
