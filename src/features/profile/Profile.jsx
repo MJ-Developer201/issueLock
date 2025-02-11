@@ -32,7 +32,7 @@ export default function Profile() {
   const [open, setOpen] = useState(false);
   const [openImgModal, setOpenImgModal] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
-  const awsUrl = import.meta.env.AWS_API_URL;
+  const awsUrl = import.meta.env.VITE_AWS_API_URL;
   const url = awsUrl || apiUrl;
 
   const fetchUserData = async ({ queryKey }) => {
