@@ -33,7 +33,7 @@ export default function Profile() {
   const [openImgModal, setOpenImgModal] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
   const awsUrl = import.meta.env.VITE_AWS_API_URL;
-  const url = awsUrl || apiUrl;
+  const url = apiUrl || awsUrl;
 
   const fetchUserData = async ({ queryKey }) => {
     console.log("Fetching user data...");
@@ -66,7 +66,6 @@ export default function Profile() {
   if (error) {
     return <div>Error fetching user data: {error.message}</div>;
   }
-  console.log(profile);
   return (
     <Container sx={{ paddingTop: "8rem", paddingBottom: "3%" }}>
       <Card elevation={1}>

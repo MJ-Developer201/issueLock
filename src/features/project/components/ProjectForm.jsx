@@ -29,7 +29,7 @@ export default function ProjectForm() {
   const [client, setClient] = useState("");
   const apiUrl = import.meta.env.VITE_API_URL;
   const awsUrl = import.meta.env.VITE_AWS_API_URL;
-  const url = awsUrl || apiUrl;
+  const url = apiUrl || awsUrl;
 
   const languages = ["JavaScript", "Python", "Java", "C#", "Ruby", "PHP"];
   const frameworks = [

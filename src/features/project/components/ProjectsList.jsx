@@ -22,7 +22,7 @@ export default function ProjectsList() {
   const [projects, setProjects] = useState([]);
   const apiUrl = import.meta.env.VITE_API_URL;
   const awsUrl = import.meta.env.VITE_AWS_API_URL;
-  const url = awsUrl || apiUrl;
+  const url = apiUrl || awsUrl;
 
   const fetchProjects = async () => {
     try {

@@ -17,7 +17,7 @@ import { useNotification } from "../../../global/context/NotificationContext";
 import { AuthContext } from "../../../App";
 const apiUrl = import.meta.env.VITE_API_URL;
 const awsUrl = import.meta.env.VITE_AWS_API_URL;
-const url = awsUrl || apiUrl;
+const url = apiUrl || awsUrl;
 
 export default function TicketList() {
   const { accessToken } = useContext(AuthContext);

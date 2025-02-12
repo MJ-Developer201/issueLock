@@ -38,7 +38,7 @@ export default function EditProfilePage() {
   const [alert, setAlert] = useState({ message: "", severity: "" });
   const apiUrl = import.meta.env.VITE_API_URL;
   const awsUrl = import.meta.env.VITE_AWS_API_URL;
-  const url = awsUrl || apiUrl;
+  const url = apiUrl || awsUrl;
 
   const fetchUserData = async ({ queryKey }) => {
     const [, accessToken] = queryKey;
@@ -51,7 +51,7 @@ export default function EditProfilePage() {
 
   const updateUser = async ({ updateFields, accessToken }) => {
     return axios
-      .post(`${apiUrl}/update-user`, updateFields, {
+      .post(`${url}/update-user`, updateFields, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((response) => response.data);
