@@ -13,6 +13,7 @@ import {
   Paper,
 } from "@mui/material";
 import axios from "axios";
+import { Link } from "react-router";
 import { useNotification } from "../../../global/context/NotificationContext";
 import { AuthContext } from "../../../App";
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -88,6 +89,8 @@ export default function TicketList() {
                     <Button
                       variant="contained"
                       color="primary"
+                      component={Link}
+                      to={`/ticket-details/${ticket.id}`}
                       onClick={() => console.log(`Ticket ID: ${ticket.id}`)}
                     >
                       View
