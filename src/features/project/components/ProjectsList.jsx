@@ -56,9 +56,7 @@ export default function ProjectsList() {
                 <CardHeader
                   action={
                     <Tooltip title="Delete">
-                      <IconButton>
-                        <DeleteOutlineOutlined />
-                      </IconButton>
+                      <IconButton>{/* <DeleteOutlineOutlined /> */}</IconButton>
                     </Tooltip>
                   }
                   titleTypographyProps={{

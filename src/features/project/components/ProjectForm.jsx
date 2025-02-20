@@ -14,12 +14,14 @@ import {
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useNavigate } from "react-router";
 import { useNotification } from "../../../global/context/NotificationContext";
 import { AuthContext } from "../../../App";
 
 export default function ProjectForm() {
   const { accessToken } = useContext(AuthContext);
   const showNotification = useNotification();
+  const navigate = useNavigate();
   const [projectName, setProjectName] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [language, setLanguage] = useState("");
@@ -77,9 +79,12 @@ export default function ProjectForm() {
       cloud,
       projectManager,
       client,
-      organizationId: "your-organization-id", // Replace with the actual organization ID
     };
     mutation.mutate(newProject);
+  };
+
+  const handleCancel = () => {
+    navigate(-1);
   };
 
   return (
@@ -179,6 +184,14 @@ export default function ProjectForm() {
               xs={12}
               sx={{ display: "flex", justifyContent: "flex-end" }}
             >
+              <Button
+                sx={{ marginInline: "0.5rem" }}
+                variant="outlined"
+                color="inherit"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
               <Button
                 variant="contained"
                 color="primary"

@@ -12,7 +12,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useNotification } from "../../../global/context/NotificationContext";
 import { AuthContext } from "../../../App";
@@ -28,9 +28,12 @@ export default function TicketForm() {
   const [status, setStatus] = useState("Pending");
   const [assignedUser, setAssignedUser] = useState("");
   const navigate = useNavigate();
+  const [alert, setAlert] = useState({ message: "", severity: "" });
+
   const apiUrl = import.meta.env.VITE_API_URL;
   const awsUrl = import.meta.env.VITE_AWS_API_URL;
   const url = apiUrl || awsUrl;
+  const queryClient = useQueryClient();
 
   const priorities = ["Low", "Med", "High"];
   const types = ["Bug", "Feature", "Enhancement", "Refactor"];
@@ -47,6 +50,8 @@ export default function TicketForm() {
   const mutation = useMutation({
     mutationFn: createTicket,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tickets"] });
+      setAlert({ message: "Ticket created successfully", severity: "success" });
       showNotification("Ticket created successfully", "success");
       // Reset form fields
       setIssue("");
@@ -72,6 +77,10 @@ export default function TicketForm() {
       assignedUser,
     };
     mutation.mutate(newTicket);
+  };
+
+  const handleCancel = () => {
+    navigate(-1);
   };
 
   return (
@@ -163,6 +172,14 @@ export default function TicketForm() {
               xs={12}
               sx={{ display: "flex", justifyContent: "flex-end" }}
             >
+              <Button
+                sx={{ marginInline: "0.5rem" }}
+                variant="outlined"
+                color="inherit"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
               <Button
                 variant="contained"
                 color="primary"
