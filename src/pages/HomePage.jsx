@@ -9,12 +9,12 @@ export default function HomePage() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "flex-start", // Align items to the top
+          justifyContent: "flex-start",
           height: "100vh",
-          backgroundImage: `url('/blake-connally-B3-2.jpg')`, // Update the path to your image
+          backgroundImage: `url('/blake-connally-B3-2.jpg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          paddingTop: "10vh", // Add padding to move the content down a bit
+          paddingTop: "10vh",
         }}
       >
         <Box
@@ -33,6 +33,15 @@ export default function HomePage() {
           <Link to="/profile">
             <Button variant="contained" color="primary">
               Go to Profile
+            </Button>
+          </Link>
+          <Link to="/project-form">
+            <Button
+              sx={{ marginBlock: "0.8rem" }}
+              variant="contained"
+              color="warning"
+            >
+              Create Project
             </Button>
           </Link>
         </Box>

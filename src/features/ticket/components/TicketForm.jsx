@@ -47,6 +47,8 @@ export default function TicketForm() {
   const mutation = useMutation({
     mutationFn: createTicket,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tickets"] });
+      setAlert({ message: "Ticket created successfully", severity: "success" });
       showNotification("Ticket created successfully", "success");
       // Reset form fields
       setIssue("");
@@ -72,6 +74,10 @@ export default function TicketForm() {
       assignedUser,
     };
     mutation.mutate(newTicket);
+  };
+
+  const handleCancel = () => {
+    navigate(-1);
   };
 
   return (
@@ -163,6 +169,14 @@ export default function TicketForm() {
               xs={12}
               sx={{ display: "flex", justifyContent: "flex-end" }}
             >
+              <Button
+                sx={{ marginInline: "0.5rem" }}
+                variant="outlined"
+                color="inherit"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
               <Button
                 variant="contained"
                 color="primary"
