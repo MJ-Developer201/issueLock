@@ -12,7 +12,7 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useNotification } from "../../../global/context/NotificationContext";
 import { AuthContext } from "../../../App";
@@ -28,9 +28,12 @@ export default function TicketForm() {
   const [status, setStatus] = useState("Pending");
   const [assignedUser, setAssignedUser] = useState("");
   const navigate = useNavigate();
+  const [alert, setAlert] = useState({ message: "", severity: "" });
+
   const apiUrl = import.meta.env.VITE_API_URL;
   const awsUrl = import.meta.env.VITE_AWS_API_URL;
   const url = apiUrl || awsUrl;
+  const queryClient = useQueryClient();
 
   const priorities = ["Low", "Med", "High"];
   const types = ["Bug", "Feature", "Enhancement", "Refactor"];
