@@ -175,6 +175,7 @@ export default function Profile() {
           <Button
             sx={{ marginInline: "1rem" }}
             color="inherit"
+            variant="outlined"
             onClick={handleCancel}
           >
             Cancel

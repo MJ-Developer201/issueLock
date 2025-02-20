@@ -186,7 +186,7 @@ export default function ProjectForm() {
             >
               <Button
                 sx={{ marginInline: "0.5rem" }}
-                variant="contained"
+                variant="outlined"
                 color="inherit"
                 onClick={handleCancel}
               >

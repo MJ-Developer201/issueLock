@@ -47,6 +47,8 @@ export default function TicketForm() {
   const mutation = useMutation({
     mutationFn: createTicket,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tickets"] });
+      setAlert({ message: "Ticket created successfully", severity: "success" });
       showNotification("Ticket created successfully", "success");
       // Reset form fields
       setIssue("");
@@ -169,7 +171,7 @@ export default function TicketForm() {
             >
               <Button
                 sx={{ marginInline: "0.5rem" }}
-                variant="contained"
+                variant="outlined"
                 color="inherit"
                 onClick={handleCancel}
               >

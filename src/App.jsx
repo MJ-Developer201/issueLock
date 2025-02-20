@@ -64,7 +64,7 @@ function App({ signOut, user }) {
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/projects" element={<ProjectPage />} />
                   <Route
-                    path="/ticket-details"
+                    path="/ticket-details/:id"
                     element={<TicketDetailsPage />}
                   />
 
