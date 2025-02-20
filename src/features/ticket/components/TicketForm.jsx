@@ -74,6 +74,10 @@ export default function TicketForm() {
     mutation.mutate(newTicket);
   };
 
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
   return (
     <Container
       sx={{ paddingTop: "8rem", display: "flex", justifyContent: "center" }}
@@ -163,6 +167,14 @@ export default function TicketForm() {
               xs={12}
               sx={{ display: "flex", justifyContent: "flex-end" }}
             >
+              <Button
+                sx={{ marginInline: "0.5rem" }}
+                variant="contained"
+                color="inherit"
+                onClick={handleCancel}
+              >
+                Cancel
+              </Button>
               <Button
                 variant="contained"
                 color="primary"

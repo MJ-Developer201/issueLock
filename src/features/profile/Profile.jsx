@@ -17,6 +17,7 @@ import {
   Avatar,
   Badge,
 } from "@mui/material";
+import { useNavigate } from "react-router";
 import { PhotoCamera } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -34,6 +35,7 @@ export default function Profile() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const awsUrl = import.meta.env.VITE_AWS_API_URL;
   const url = apiUrl || awsUrl;
+  const navigate = useNavigate();
 
   const fetchUserData = async ({ queryKey }) => {
     console.log("Fetching user data...");
@@ -54,6 +56,10 @@ export default function Profile() {
     queryFn: fetchUserData,
     enabled: !!accessToken,
   });
+
+  const handleCancel = () => {
+    navigate(-1);
+  };
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -113,19 +119,7 @@ export default function Profile() {
             xs={12}
             sm={6}
             sx={{ display: "flex", justifyContent: "flex-end" }}
-          >
-            <CardActions>
-              <Link to="/edit-profile">
-                <Button
-                  variant="contained"
-                  name="btnAddMore"
-                  onClick={handleOpen}
-                >
-                  Edit Profile
-                </Button>
-              </Link>
-            </CardActions>
-          </Grid>
+          ></Grid>
         </Grid>
         <Divider />
         <CardContent>
@@ -177,19 +171,26 @@ export default function Profile() {
             </Grid>
           </Grid>
         </CardContent>
+        <CardActions sx={{ justifyContent: "flex-end", paddingBlock: "2rem" }}>
+          <Button
+            sx={{ marginInline: "1rem" }}
+            color="inherit"
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+          <Link to="/edit-profile">
+            <Button
+              sx={{ marginRight: "1.5rem" }}
+              variant="contained"
+              name="btnAddMore"
+              onClick={handleOpen}
+            >
+              Edit Profile
+            </Button>
+          </Link>
+        </CardActions>
       </Card>
-      <Modal open={open} onClose={handleClose}>
-        <div>
-          {/* Placeholder for EditProfileModal */}
-          <Typography>Edit Profile Modal</Typography>
-        </div>
-      </Modal>
-      <Modal open={openImgModal} onClose={handleCloseImgModal}>
-        <div>
-          {/* Placeholder for ProfilePictureModal */}
-          <Typography>Profile Picture Modal</Typography>
-        </div>
-      </Modal>
     </Container>
   );
 }
