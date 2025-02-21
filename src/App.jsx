@@ -26,6 +26,7 @@ import ProjectFormPage from "./pages/ProjectFormPage";
 import TicketsPage from "./pages/TicketsPage";
 import TicketFormPage from "./pages/TicketFormPage";
 import TicketDetailsPage from "./pages/TicketDetailsPage";
+import EditTicketPage from "./pages/EditTicketPage";
 Amplify.configure(awsExports);
 
 //
@@ -69,6 +70,8 @@ function App({ signOut, user }) {
                   />
 
                   <Route path="/ticket-form" element={<TicketFormPage />} />
+                  <Route path="/edit-ticket/:id" element={<EditTicketPage />} />
+
                   <Route path="/project-form" element={<ProjectFormPage />} />
                   <Route path="/edit-profile" element={<EditProfilePage />} />
                 </Routes>
