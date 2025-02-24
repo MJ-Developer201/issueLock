@@ -48,17 +48,9 @@ export default function TicketEdit() {
   };
 
   const { data, error, isLoading } = useQuery({
-    queryKey: ["ticket", id, accessToken],
+    queryKey: ["ticket", accessToken],
     queryFn: fetchTicketDetails,
     enabled: !!accessToken,
-    onSuccess: (data) => {
-      setIssue(data.ticket.issue);
-      setDescription(data.ticket.description);
-      setPriority(data.ticket.priority);
-      setType(data.ticket.type);
-      setStatus(data.ticket.status);
-      setAssignedUser(data.ticket.assignedUser);
-    },
     onError: (error) => {
       showNotification(
         `Error fetching ticket details: ${error.message}`,
@@ -66,6 +58,22 @@ export default function TicketEdit() {
       );
     },
   });
+
+  useEffect(() => {
+    if (data && data.ticket) {
+      console.log("Fetched ticket data:", data);
+      setIssue(data.ticket.issue || "");
+      setDescription(data.ticket.description || "");
+      setPriority(data.ticket.priority || "Med");
+      setType(data.ticket.type || "");
+      setStatus(data.ticket.status || "Pending");
+      setAssignedUser(
+        data.ticket.assignedUser === "null"
+          ? ""
+          : data.ticket.assignedUser || ""
+      );
+    }
+  }, [data]);
 
   const updateTicket = async (updatedTicket) => {
     return axios
@@ -78,7 +86,7 @@ export default function TicketEdit() {
   const mutation = useMutation({
     mutationFn: updateTicket,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["tickets", accessToken] });
       showNotification("Ticket updated successfully", "success");
       navigate(`/ticket-details/${id}`);
     },
@@ -122,7 +130,7 @@ export default function TicketEdit() {
       </Container>
     );
   }
-  console.log(data);
+
   return (
     <Container
       sx={{ paddingTop: "8rem", display: "flex", justifyContent: "center" }}
