@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Table,
   TableBody,
@@ -13,9 +13,11 @@ import {
   Paper,
 } from "@mui/material";
 import axios from "axios";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { useNotification } from "../../../global/context/NotificationContext";
 import { AuthContext } from "../../../App";
+
 const apiUrl = import.meta.env.VITE_API_URL;
 const awsUrl = import.meta.env.VITE_AWS_API_URL;
 const url = apiUrl || awsUrl;
@@ -23,28 +25,49 @@ const url = apiUrl || awsUrl;
 export default function TicketList() {
   const { accessToken } = useContext(AuthContext);
   const showNotification = useNotification();
-  const [tickets, setTickets] = useState([]);
   const [noTicketsMessage, setNoTicketsMessage] = useState("");
 
   const fetchTickets = async () => {
-    try {
-      const response = await axios.get(`${url}/get-tickets`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      if (response.data.message === "No tickets found") {
-        setNoTicketsMessage(response.data.message);
-        showNotification("No tickets found for the current project", "info");
-      } else {
-        setTickets(response.data.tickets);
-      }
-    } catch (error) {
-      showNotification(`Error fetching tickets: ${error.message}`, "error");
-    }
+    const response = await axios.get(`${url}/get-tickets`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data;
   };
 
-  useEffect(() => {
-    fetchTickets();
-  }, [accessToken]);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["tickets", accessToken],
+    queryFn: fetchTickets,
+    enabled: !!accessToken,
+    onSuccess: (data) => {
+      if (data.message === "No tickets found") {
+        setNoTicketsMessage(data.message);
+        showNotification("No tickets found for the current project", "info");
+      }
+    },
+    onError: (error) => {
+      showNotification(`Error fetching tickets: ${error.message}`, "error");
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <Container sx={{ paddingTop: "8rem" }}>
+        <Typography variant="h5" gutterBottom>
+          Loading tickets...
+        </Typography>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container sx={{ paddingTop: "8rem" }}>
+        <Typography variant="h5" gutterBottom>
+          Error fetching tickets: {error.message}
+        </Typography>
+      </Container>
+    );
+  }
 
   return (
     <Container sx={{ paddingTop: "8rem" }}>
@@ -77,27 +100,28 @@ export default function TicketList() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tickets.map((ticket) => (
-                <TableRow key={ticket.id}>
-                  <TableCell>{ticket.issue}</TableCell>
-                  <TableCell>{ticket.description}</TableCell>
-                  <TableCell>{ticket.priority}</TableCell>
-                  <TableCell>{ticket.type}</TableCell>
-                  <TableCell>{ticket.status}</TableCell>
-                  <TableCell>{ticket.assignedUser}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      component={Link}
-                      to={`/ticket-details/${ticket.id}`}
-                      onClick={() => console.log(`Ticket ID: ${ticket.id}`)}
-                    >
-                      View
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {data &&
+                data.tickets.map((ticket) => (
+                  <TableRow key={ticket.id}>
+                    <TableCell>{ticket.issue}</TableCell>
+                    <TableCell>{ticket.description}</TableCell>
+                    <TableCell>{ticket.priority}</TableCell>
+                    <TableCell>{ticket.type}</TableCell>
+                    <TableCell>{ticket.status}</TableCell>
+                    <TableCell>{ticket.assignedUser}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        component={Link}
+                        to={`/ticket-details/${ticket.id}`}
+                        onClick={() => console.log(`Ticket ID: ${ticket.id}`)}
+                      >
+                        View
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
