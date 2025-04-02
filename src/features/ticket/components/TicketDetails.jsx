@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   Container,
   Typography,
@@ -29,6 +29,7 @@ export default function TicketDetails() {
   const { id } = useParams();
   const { accessToken } = useContext(AuthContext);
   const showNotification = useNotification();
+  const navigate = useNavigate();
 
   const fetchTicketDetails = async () => {
     const response = await axios.get(`${url}/get-ticket/${id}`, {
@@ -176,7 +177,7 @@ export default function TicketDetails() {
         <Button
           variant="outlined"
           color="inherit"
-          onClick={() => window.history.back()}
+          onClick={() => navigate(`/tickets`)}
         >
           Back
         </Button>

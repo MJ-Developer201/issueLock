@@ -50,6 +50,7 @@ function App({ signOut, user }) {
     }
   }, [user]);
 
+  console.log(accessToken);
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContext.Provider value={{ accessToken }}>

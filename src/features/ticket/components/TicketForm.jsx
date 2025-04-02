@@ -85,7 +85,12 @@ export default function TicketForm() {
 
   return (
     <Container
-      sx={{ paddingTop: "8rem", display: "flex", justifyContent: "center" }}
+      sx={{
+        paddingTop: "8rem",
+        display: "flex",
+        justifyContent: "center",
+        gap: "2rem",
+      }}
     >
       <Card sx={{ maxWidth: 800, width: "100%", padding: 3 }}>
         <CardContent>
