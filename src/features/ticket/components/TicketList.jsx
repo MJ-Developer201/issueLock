@@ -69,7 +69,7 @@ export default function TicketList() {
     );
   }
 
-  if (!data.tickets || data.tickets.length === 0) {
+  if (!data || !data.tickets || data.tickets.length === 0) {
     return (
       <Container sx={{ paddingTop: "8rem" }}>
         <Typography variant="h5" gutterBottom>
