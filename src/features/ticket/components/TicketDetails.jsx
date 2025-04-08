@@ -71,7 +71,7 @@ export default function TicketDetails() {
   }
 
   return (
-    <Container sx={{ paddingTop: "8rem", paddingBottom: "3%" }}>
+    <Container maxWidth="xl" sx={{ paddingTop: "8rem", paddingBottom: "3%" }}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Card elevation={1}>

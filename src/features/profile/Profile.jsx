@@ -27,6 +27,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import PublicIcon from "@mui/icons-material/Public";
 import DomainOutlinedIcon from "@mui/icons-material/DomainOutlined";
 import { AuthContext } from "../../App";
+import { getCurrentUser } from "aws-amplify/auth";
 
 export default function Profile() {
   const { accessToken } = useContext(AuthContext);
@@ -37,12 +38,24 @@ export default function Profile() {
   const url = apiUrl || awsUrl;
   const navigate = useNavigate();
 
+  async function currentAuthenticatedUser() {
+    try {
+      const { username, userId, signInDetails } = await getCurrentUser();
+      console.log(`The username: ${username}`);
+      console.log(`The userId: ${userId}`);
+      console.log(`The signInDetails: ${signInDetails}`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const fetchUserData = async ({ queryKey }) => {
     console.log("Fetching user data...");
     const [, accessToken] = queryKey;
     return axios
       .get(`${url}/single-person`, {
         headers: { Authorization: `Bearer ${accessToken}` },
+        params: { email: "testing email param" },
       })
       .then((response) => response.data.user);
   };
@@ -73,7 +86,7 @@ export default function Profile() {
     return <div>Error fetching user data: {error.message}</div>;
   }
   return (
-    <Container sx={{ paddingTop: "8rem", paddingBottom: "3%" }}>
+    <Container maxWidth="xl" sx={{ paddingTop: "8rem", paddingBottom: "3%" }}>
       <Card elevation={1}>
         <Grid
           container

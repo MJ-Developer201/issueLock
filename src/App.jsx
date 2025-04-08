@@ -36,6 +36,7 @@ const queryClient = new QueryClient();
 
 function App({ signOut, user }) {
   const [accessToken, setAccessToken] = useState("");
+  const emailId = user.signInDetails.loginId;
 
   useEffect(() => {
     if (user) {
@@ -58,7 +59,7 @@ function App({ signOut, user }) {
           <ThemeProvider theme={theme}>
             <Box sx={{ display: "flex" }}>
               <Sidebar signOut={signOut} />
-              <Container>
+              <Container maxWidth="xl">
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/team" element={<TeamPage />} />

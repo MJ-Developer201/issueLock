@@ -40,7 +40,7 @@ export default function ProjectsList() {
   }, [accessToken]);
 
   return (
-    <Container sx={{ paddingTop: "8rem" }}>
+    <Container maxWidth="xl" sx={{ paddingTop: "8rem" }}>
       <Grid container spacing={2}>
         {projects.map((project) => (
           <Grid

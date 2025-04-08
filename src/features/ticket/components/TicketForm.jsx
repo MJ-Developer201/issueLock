@@ -85,6 +85,7 @@ export default function TicketForm() {
 
   return (
     <Container
+      maxWidth="xl"
       sx={{
         paddingTop: "8rem",
         display: "flex",
