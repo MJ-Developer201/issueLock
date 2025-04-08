@@ -128,7 +128,7 @@ export default function EditProfilePage() {
   }
 
   return (
-    <Container sx={{ paddingTop: "8rem", paddingBottom: "3%" }}>
+    <Container maxWidth="xl" sx={{ paddingTop: "8rem", paddingBottom: "3%" }}>
       <Card elevation={1}>
         <Grid
           container

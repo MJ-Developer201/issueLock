@@ -39,7 +39,7 @@ export default function TicketList() {
     queryFn: fetchTickets,
     enabled: !!accessToken,
     onSuccess: (data) => {
-      if (data.message === "No tickets found") {
+      if (data.message.length == 0) {
         setNoTicketsMessage(data.message);
         showNotification("No tickets found for the current project", "info");
       }
@@ -69,8 +69,18 @@ export default function TicketList() {
     );
   }
 
+  if (!data.tickets || data.tickets.length === 0) {
+    return (
+      <Container sx={{ paddingTop: "8rem" }}>
+        <Typography variant="h5" gutterBottom>
+          No tickets found for the current project.
+        </Typography>
+      </Container>
+    );
+  }
+
   return (
-    <Container sx={{ paddingTop: "8rem" }}>
+    <Container maxWidth="xl" sx={{ paddingTop: "8rem" }}>
       <Typography variant="h5" gutterBottom>
         Tickets
       </Typography>

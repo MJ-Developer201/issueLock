@@ -123,7 +123,7 @@ export default function TicketEdit() {
 
   if (error) {
     return (
-      <Container sx={{ paddingTop: "8rem" }}>
+      <Container maxWidth="xl" sx={{ paddingTop: "8rem" }}>
         <Typography variant="h5" gutterBottom>
           Error fetching ticket details: {error.message}
         </Typography>
